@@ -26,7 +26,7 @@ var errorPageTemplate string = `
 			</div>
 
 			<div class="jumbotron">
-				<p><img src="http://i2.kym-cdn.com/photos/images/original/000/234/765/b7e.jpg" /></p>
+				<p><img src="https://raw.githubusercontent.com/adamzwickey/cf-networking-examples/master/frontend/err.png" /></p>
 				<p class="lead">request failed: {{.Error}}</p>
 			</div>
 		</div>
