@@ -6,12 +6,14 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"os"
 	"time"
 )
 
 type HttpDemoResultPage struct {
 	Stylesheet template.HTML
 	CatBody    template.HTML
+	Namespace  string
 }
 
 var httpDemoResultPageTemplate string = `
@@ -29,6 +31,7 @@ var httpDemoResultPageTemplate string = `
 			<div class="header clearfix navbar navbar-inverse">
 				<div class="container">
 					<h3>Frontend Sample App</h3>
+					<h3>Namespace: {{.Namespace}}</h3>
 				</div>
 			</div>
 
@@ -76,6 +79,7 @@ func (h *HttpDemoHandler) ServeHTTP(resp http.ResponseWriter, req *http.Request)
 	err = theTemplate.Execute(resp, HttpDemoResultPage{
 		Stylesheet: stylesheet,
 		CatBody:    catBody,
+		Namespace:  os.Getenv("NAMESPACE"),
 	})
 	if err != nil {
 		panic(err)

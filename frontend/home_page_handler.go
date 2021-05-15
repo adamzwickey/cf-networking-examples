@@ -4,11 +4,13 @@ import (
 	"html/template"
 	"math/rand"
 	"net/http"
+	"os"
 )
 
 type HomePage struct {
 	Stylesheet  template.HTML
 	Cachebuster int
+	Namespace   string
 }
 
 var homePageTemplate string = `
@@ -26,6 +28,7 @@ var homePageTemplate string = `
 			<div class="header clearfix navbar navbar-inverse">
 				<div class="container">
 					<h3>Frontend Sample App</h3>
+					<h3>Namespace: {{.Namespace}}</h3>
 				</div>
 			</div>
 
@@ -45,7 +48,7 @@ var homePageTemplate string = `
 				</form>
 			</div>
 
-			<div class="jumbotron">
+			<!-- <div class="jumbotron">
 				<form action="/udp-test/" method="get" class="form-inline">
 					<div class="row">
 						<h2>UDP Test</h2>
@@ -64,7 +67,7 @@ var homePageTemplate string = `
 						</div>
   				</div>
 				</form>
-			</div>
+			</div> -->
 		</div>
 	</body>
 </html>
@@ -77,6 +80,7 @@ func (h *HomePageHandler) ServeHTTP(resp http.ResponseWriter, req *http.Request)
 	err := template.Execute(resp, HomePage{
 		Stylesheet:  stylesheet,
 		Cachebuster: rand.Int(),
+		Namespace:   os.Getenv("NAMESPACE"),
 	})
 	if err != nil {
 		panic(err)
