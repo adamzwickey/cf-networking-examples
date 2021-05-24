@@ -37,10 +37,18 @@ var homePageTemplate string = `
 					<div class="row">
 					<h2>HTTP Test</h2>
 						<div class=".col-md-4.col-md-offset-4">
-				  		<div class="form-group">
-								<label for="url">Backend HTTP URL</label>
-								<input type="text" name="url" class="form-control" placeholder="appName.apps.internal:8080">
+							<div class="form-group">
+								<label for="url">Backend HTTP URL&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								<input type="text" name="url" class="form-control" placeholder="productpage:9080">
 							</div>
+						</div>
+						<div class=".col-md-4.col-md-offset-4">
+							<div class="form-group">
+								<label for="auth">Backend Auth Header</label>
+								<input type="text" name="auth" class="form-control" placeholder="Authorization: Bearer">
+							</div>
+						</div>
+						<div class=".col-md-4.col-md-offset-4">
 							<input type="hidden" name="cachebuster" value="{{.Cachebuster}}">
 							<button type="submit" class="btn btn-default">Submit</button>
 						</div>

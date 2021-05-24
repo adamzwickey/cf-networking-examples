@@ -50,9 +50,13 @@ func (h *HttpDemoHandler) ServeHTTP(resp http.ResponseWriter, req *http.Request)
 	}
 	destination := queryParams["url"][0]
 	destination = "http://" + destination
-	httpClient := http.DefaultClient
-	httpClient.Timeout = 5 * time.Second
-	getResp, err := httpClient.Get(destination)
+	bearer := "Bearer " + queryParams["auth"][0]
+
+	newReq, err := http.NewRequest("GET", destination, nil)
+	newReq.Header.Set("Authorization", bearer)
+	httpClient := &http.Client{Timeout: time.Second * 5}
+	getResp, err := httpClient.Do(newReq)
+
 	if err != nil {
 		template := template.Must(template.New("errorPageTemplate").Parse(errorPageTemplate))
 		err = template.Execute(resp, ErrorPage{
